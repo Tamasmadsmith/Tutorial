@@ -4,6 +4,8 @@ const ctx = canvas.getContext("2d");
 let x = 200;
 let y = 200;
 
+let score = 0;
+
 let dx = 20;
 let dy = 0;
 
@@ -37,6 +39,18 @@ document.addEventListener("keydown", (event) => {
 function draw() {
     x += dx;
     y += dy;
+
+    if (x === foodX && y === foodY) {
+    score++;
+    console.log("Score:", score);
+
+    foodX = Math.floor(Math.random() * 20) * 20;
+    foodY = Math.floor(Math.random() * 20) * 20;
+    
+
+
+    console.log("Food eaten!");
+}
 
     ctx.clearRect(0, 0, 400, 400);
 
