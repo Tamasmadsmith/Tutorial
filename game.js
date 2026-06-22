@@ -7,6 +7,9 @@ let y = 200;
 let dx = 20;
 let dy = 0;
 
+let foodX = 100;
+let foodY = 100;
+
 document.addEventListener("keydown", (event) => {
     switch (event.key) {
         case "ArrowUp":
@@ -37,8 +40,11 @@ function draw() {
 
     ctx.clearRect(0, 0, 400, 400);
 
-    ctx.fillStyle = "lime";
+    ctx.fillStyle = "red";
     ctx.fillRect(x, y, 20, 20);
+
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(foodX, foodY, 20, 20); 
 }
 
 setInterval(draw, 100);
