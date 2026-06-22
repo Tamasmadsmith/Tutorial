@@ -1,8 +1,11 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-let x = 200;
-let y = 200;
+let snake = [
+    { x: 200, y: 200 }
+];
+
+let snakeLength = 1;
 
 let score = 0;
 
@@ -37,25 +40,41 @@ document.addEventListener("keydown", (event) => {
 });
 
 function draw() {
-    x += dx;
-    y += dy;
+    const head = {
+    x: snake[0].x + dx,
+    y: snake[0].y + dy
+};
 
-    if (x === foodX && y === foodY) {
+    if (head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 400) {
+    alert("Game Over! Score: " + score);
+    location.reload();
+}
+
+    snake.unshift(head);
+
+    while (snake.length > snakeLength) {
+        snake.pop();
+}
+
+    if (snake[0].x === foodX && snake[0].y === foodY) {
     score++;
     console.log("Score:", score);
 
     foodX = Math.floor(Math.random() * 20) * 20;
     foodY = Math.floor(Math.random() * 20) * 20;
     
-
+    snakeLength ++;
 
     console.log("Food eaten!");
 }
 
     ctx.clearRect(0, 0, 400, 400);
 
-    ctx.fillStyle = "red";
-    ctx.fillRect(x, y, 20, 20);
+    ctx.fillStyle = "lime";
+
+    snake.forEach(segment => {
+    ctx.fillRect(segment.x, segment.y, 20, 20);
+});
 
     ctx.fillStyle = "yellow";
     ctx.fillRect(foodX, foodY, 20, 20); 
